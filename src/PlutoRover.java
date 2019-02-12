@@ -1,11 +1,11 @@
 public class PlutoRover {
 
-    public Integer[] grid;
+    public int[][] grid;
     public Direction direction;
     public int x;
     public int y;
 
-    public PlutoRover(Integer[] grid) {
+    public PlutoRover(int[][] grid) {
         this.grid = grid;
         this.x = 0;
         this.y = 0;
