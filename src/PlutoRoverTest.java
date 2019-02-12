@@ -4,13 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlutoRoverTest {
     
-    int defaultSize = 4;
+    private int defaultSize = 4;
     PlutoRover p = new PlutoRover(new int[defaultSize][defaultSize]);
 
     @Test
     void createEmptyGridOfDimensionFour() {
         assert p.grid.length == defaultSize;
     }
+
     @Test
     void checkInitialCoordinatesAndDirection() {
         assert p.direction == Direction.NORTH
@@ -20,6 +21,8 @@ class PlutoRoverTest {
 
     @Test
     void movesForwardGivenF() {
+        p.x = 0;
+        p.y = 0;
         String command = "F";
         p.parseCommands(command);
         assert p.x == 0
@@ -47,8 +50,23 @@ class PlutoRoverTest {
     }
 
     @Test
-    void noRotationGivenRAndL() {
+    void rotatesTwicePointsSouth() {
+        String commands = "RR";
+        p.direction = Direction.NORTH;
+        p.parseCommands(commands);
+        assert p.direction == Direction.SOUTH;
+    }
 
+    @Test
+    void noRotationGivenRAndL() {
+        String commands = "RL";
+        p.x = 0;
+        p.y = 0;
+        p.direction = Direction.NORTH;
+        p.parseCommands(commands);
+        assert p.x == 0
+                && p.y == 0
+                && p.direction == Direction.NORTH;
     }
 
     @Test
@@ -63,12 +81,22 @@ class PlutoRoverTest {
 
     @Test
     void coordinatesWrapHorizontally() {
-
+        String command = "F";
+        p.x = 3;
+        p.y = 0;
+        p.direction = Direction.EAST;
+        p.parseCommands(command);
+        assert p.x == 0;
     }
 
     @Test
     void coordinatesWrapVertically() {
-
+        String command = "F";
+        p.y = 3;
+        p.x = 0;
+        p.direction = Direction.NORTH;
+        p.parseCommands(command);
+        assert p.y == 0;
     }
 
 }

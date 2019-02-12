@@ -17,6 +17,7 @@ public class PlutoRover {
 
         for (char aCommandsArray : commandsArray) {
             move(aCommandsArray);
+            System.out.println(this.x + " " + this.y);
         }
     }
 
@@ -29,10 +30,10 @@ public class PlutoRover {
                 checkDirectionAndMoveBackward();
                 break;
             case 'R':
-                this.direction.next();
+                this.direction = this.direction.next();
                 break;
             case 'L':
-                this.direction.previous();
+                this.direction = this.direction.previous();
                 break;
             default:
                 System.out.println("Invalid command");
@@ -51,6 +52,10 @@ public class PlutoRover {
         }
         else if (x < 0) {
             this.x = grid.length - 1;
+        }
+        else {
+            this.x = x;
+            this.y = y;
         }
     }
 
