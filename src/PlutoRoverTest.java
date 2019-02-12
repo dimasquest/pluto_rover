@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,11 +20,29 @@ class PlutoRoverTest {
 
     @Test
     void movesForwardGivenF() {
-
+        String command = "F";
+        p.parseCommands(command);
+        assert p.x == 0
+                && p.y == 1;
     }
 
     @Test
-    void movesBackGivenB() {
+    void movesBackGivenBFromOneOne() {
+        p.x = 1;
+        p.y = 1;
+        String command = "B";
+        p.parseCommands(command);
+        assert p.y == 0
+                && p.x == 1;
+    }
+
+    @Test
+    void rejectWrongCommand() {
+        p.x = 0;
+        p.y = 0;
+        String command = "D";
+        p.parseCommands(command);
+        assert p.x == p.y;
 
     }
 
@@ -33,8 +52,13 @@ class PlutoRoverTest {
     }
 
     @Test
-    void parsesStringFRFAndMoves(String frf) {
-
+    void parsesStringFRFAndMoves() {
+        String commands = "FRF";
+        p.x = 0;
+        p.y = 0;
+        p.parseCommands(commands);
+        assert p.x == 1
+                && p.y == 1;
     }
 
     @Test
@@ -44,7 +68,7 @@ class PlutoRoverTest {
 
     @Test
     void coordinatesWrapVertically() {
-        
+
     }
 
 }
