@@ -1,0 +1,7 @@
+Things I would have added:
+  more checks (such as input check, right now it is assumed to be a string, but user could break it by inputting integer instead)
+  support for many-dimensional grid 
+  better implementation of the obsticles (current one is rather confusing, a better one would rely on using a matrix rather than X Y Direction as fields. Which was the initial approach, but it would become more confusing to work with in a short time period.)
+  better testsuite (current one relies on assertions, could have added rules for some tests)
+  better implementation of the direction/boundary checking (currently some code is duplicated)
+  more functional style approach in general (makes code a lot more readable, but somewhat slower)
