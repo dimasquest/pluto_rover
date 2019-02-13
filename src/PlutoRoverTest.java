@@ -5,12 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlutoRoverTest {
     
     private int defaultSize = 4;
-    PlutoRover p = new PlutoRover(new int[defaultSize][defaultSize]);
-
-    @Test
-    void createEmptyGridOfDimensionFour() {
-        assert p.grid.length == defaultSize;
-    }
+    PlutoRover p = new PlutoRover(defaultSize);
 
     @Test
     void checkInitialCoordinatesAndDirection() {
