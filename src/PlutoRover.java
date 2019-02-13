@@ -1,5 +1,4 @@
 import javafx.util.Pair;
-
 import java.util.List;
 
 class PlutoRover {
@@ -23,7 +22,6 @@ class PlutoRover {
 
         for (char aCommandsArray : commandsArray) {
             move(aCommandsArray);
-            System.out.println(x + " " + y);
         }
     }
 
@@ -49,21 +47,26 @@ class PlutoRover {
     private void checkBoundariesAndWrap(int x, int y) {
 
         if (checkIfOccupied(x, y)) {
+            System.out.println("Obstacle at " + x + " " + y);
             return;
         }
 
         if (y == gridSize) {
             this.y = 0;
         }
+
         else if (y < 0) {
             this.y = gridSize - 1;
         }
+
         else if (x == gridSize) {
             this.x = 0;
         }
+
         else if (x < 0) {
             this.x = gridSize - 1;
         }
+
         else {
             this.x = x;
             this.y = y;

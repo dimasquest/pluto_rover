@@ -51,7 +51,7 @@ class PlutoRoverTest {
     }
 
     @Test
-    void noRotationGivenRAndL() {
+    void noRotationOrMovementGivenRAndL() {
         String commands = "RL";
         p.parseCommands(commands);
         assert p.x == 0
@@ -89,7 +89,7 @@ class PlutoRoverTest {
     @Test
     void canAddToTheListOfObstacles() {
         p.knownObstacles.add(newObstacle);
-        assert p.knownObstacles.size() == 1;
+        assert p.knownObstacles.contains(new Pair(1, 1));
     }
 
     @Test
