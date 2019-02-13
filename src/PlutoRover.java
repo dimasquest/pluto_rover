@@ -1,27 +1,33 @@
-public class PlutoRover {
+import javafx.util.Pair;
+
+import java.util.List;
+
+class PlutoRover {
 
     Direction direction;
     int x;
     int y;
     int gridSize;
+    List<Pair<Integer, Integer>> knownObstacles;
 
-    public PlutoRover(int size) {
+    PlutoRover(int size, List<Pair<Integer, Integer>> knownObstacles) {
         this.x = 0;
         this.y = 0;
         this.direction = Direction.NORTH;
         this.gridSize = size;
+        this.knownObstacles = knownObstacles;
     }
 
-    public void parseCommands(String commands) {
+    void parseCommands(String commands) {
         char[] commandsArray = commands.toCharArray();
 
         for (char aCommandsArray : commandsArray) {
             move(aCommandsArray);
-            System.out.println(this.x + " " + this.y);
+            System.out.println(x + " " + y);
         }
     }
 
-    public void move(char move) {
+    private void move(char move) {
         switch (move) {
             case 'F':
                 checkDirectionAndMoveForward();
@@ -41,6 +47,11 @@ public class PlutoRover {
     }
 
     private void checkBoundariesAndWrap(int x, int y) {
+
+        if (checkIfOccupied(x, y)) {
+            return;
+        }
+
         if (y == gridSize) {
             this.y = 0;
         }
@@ -75,5 +86,9 @@ public class PlutoRover {
             case EAST: checkBoundariesAndWrap(x - 1, y); break;
             case WEST: checkBoundariesAndWrap(x + 1, y); break;
         }
+    }
+
+    private boolean checkIfOccupied(int x, int y) {
+        return knownObstacles.contains(new Pair(x ,y));
     }
 }

@@ -1,11 +1,14 @@
-import org.junit.jupiter.api.Assertions;
+import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class PlutoRoverTest {
     
     private int defaultSize = 4;
-    PlutoRover p = new PlutoRover(defaultSize);
+    private List<Pair<Integer, Integer>> knownObstacles = new ArrayList<>();
+    private Pair<Integer, Integer> newObstacle = new Pair<>(1, 1);
+    PlutoRover p = new PlutoRover(defaultSize, knownObstacles);
 
     @Test
     void checkInitialCoordinatesAndDirection() {
@@ -16,8 +19,6 @@ class PlutoRoverTest {
 
     @Test
     void movesForwardGivenF() {
-        p.x = 0;
-        p.y = 0;
         String command = "F";
         p.parseCommands(command);
         assert p.x == 0
@@ -36,8 +37,6 @@ class PlutoRoverTest {
 
     @Test
     void rejectWrongCommand() {
-        p.x = 0;
-        p.y = 0;
         String command = "D";
         p.parseCommands(command);
         assert p.x == p.y;
@@ -47,7 +46,6 @@ class PlutoRoverTest {
     @Test
     void rotatesTwicePointsSouth() {
         String commands = "RR";
-        p.direction = Direction.NORTH;
         p.parseCommands(commands);
         assert p.direction == Direction.SOUTH;
     }
@@ -55,9 +53,6 @@ class PlutoRoverTest {
     @Test
     void noRotationGivenRAndL() {
         String commands = "RL";
-        p.x = 0;
-        p.y = 0;
-        p.direction = Direction.NORTH;
         p.parseCommands(commands);
         assert p.x == 0
                 && p.y == 0
@@ -67,8 +62,6 @@ class PlutoRoverTest {
     @Test
     void parsesStringFRFAndMoves() {
         String commands = "FRF";
-        p.x = 0;
-        p.y = 0;
         p.parseCommands(commands);
         assert p.x == 1
                 && p.y == 1;
@@ -89,9 +82,22 @@ class PlutoRoverTest {
         String command = "F";
         p.y = 3;
         p.x = 0;
-        p.direction = Direction.NORTH;
         p.parseCommands(command);
         assert p.y == 0;
     }
 
+    @Test
+    void canAddToTheListOfObstacles() {
+        p.knownObstacles.add(newObstacle);
+        assert p.knownObstacles.size() == 1;
+    }
+
+    @Test
+    void detectAnObstacleAndDoesntMoveForward() {
+        String commands = "FRF";
+        p.knownObstacles.add(newObstacle);
+        p.parseCommands(commands);
+        assert p.x == 0
+                && p.y == 1;
+    }
 }
